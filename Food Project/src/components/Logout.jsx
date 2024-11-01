@@ -11,7 +11,7 @@ export const logOut = async (dispatch, setLoading, setError, navigate) => {
     // Sign out the user from Firebase
     await signOut(auth);
 
-    // Remove any saved token or data from local storage
+    // Remove saved tokens and user data from local storage
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
 
@@ -19,13 +19,10 @@ export const logOut = async (dispatch, setLoading, setError, navigate) => {
     dispatch(addUserData(null));
     dispatch(isUserLoggedIn(false));
 
-    // Redirect user to login/signup page
     navigate("/LoginSignUp");
   } catch (err) {
-    // If there's an error, set the error message
     setError(err.message);
   } finally {
-    // Set loading to false once done
     setLoading(false);
   }
 };

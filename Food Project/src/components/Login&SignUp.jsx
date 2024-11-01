@@ -13,10 +13,10 @@ import { useNavigate } from "react-router-dom";
 const LoginSignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirm password
+  const [confirmPassword, setConfirmPassword] = useState(""); 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true); // Set to true to show login screen first
+  const [isLogin, setIsLogin] = useState(true); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -87,9 +87,9 @@ const LoginSignUp = () => {
     }
   };
 
-  // New function to handle skipping
+
   const handleSkip = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/");
   };
 
   return (

@@ -77,7 +77,7 @@ const Reviews = () => {
       rating: rating,
       text: reviewText,
       timestamp: new Date(),
-      userId: userData?.uid, // Add user ID to the review
+      userId: userData?.uid,
     };
 
     try {
@@ -110,7 +110,7 @@ const Reviews = () => {
     fetchDocs();
   }, []);
 
-  // Add delete functionality
+  // Delete functionality
   const handleDelete = async (reviewId, reviewUserId) => {
     // Check if the current user is the owner of the review
     if (userData?.uid !== reviewUserId) {
@@ -119,7 +119,7 @@ const Reviews = () => {
 
     try {
       await deleteDoc(doc(fireStore, "reviews", reviewId));
-      fetchDocs(); // Refresh reviews after deletion
+      fetchDocs();
     } catch (err) {
       console.error("Error deleting review:", err);
     }

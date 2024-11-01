@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 const TimeOutPopUp = () => {
     const [isOpen, setIsOpen] = useState(true);
-    const isLoggedIn = false; // Set this according to your authentication state
-    const totalAmount = 500;  // Replace with dynamic amount if needed
 
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">

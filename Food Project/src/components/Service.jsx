@@ -13,11 +13,13 @@ const Service = ({ search }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [loadMoreCount, setLoadMoreCount] = useState(0);
-  const [localCart, setLocalCart] = useState({}); // Local state to manage cart items
+  const [localCart, setLocalCart] = useState({}); 
 
   const {cartItems} = useSelector((state) => state.cart)
   console.log(cartItems)
   const dispatch = useDispatch();
+
+  console.log(data);
 
   const foodCategories = [
     "indian",
@@ -33,7 +35,6 @@ const Service = ({ search }) => {
   ];
 
   useEffect(() => {
-    // Reset data when search changes
     if (search) {
       setData([]);
       setPrices([]);

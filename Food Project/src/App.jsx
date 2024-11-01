@@ -7,12 +7,14 @@ import Home from './components/Home';     // Import Home
 import Reviews from './components/Reviews'; // Import Reviews
 import Cart from './components/Cart';       // Import Cart
 import LoginSignUp from './components/Login&SignUp'; // Import LoginSignUp
+import NotFound from './components/NotFound';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
+      errorElement: <NotFound />,
       children: [
         {
           path: "/",
@@ -25,7 +27,7 @@ function App() {
         {
           path: "/Cart",
           element: <Cart />
-        }
+        },
       ]
     },
     {

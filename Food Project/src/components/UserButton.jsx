@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logOut } from "./Logout"; // Adjust path if necessary
+import { logOut } from "./Logout";
 
 const UserButton = () => {
-  const [nameInput, setNameInput] = useState(""); // State to hold the input value
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal visibility
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,21 +13,9 @@ const UserButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Function to handle the change in input field
-  const handleInputChange = (e) => {
-    setNameInput(e.target.value);
-  };
-
-  // Function to handle the submission of the name input
-  const handleNameSubmit = () => {
-    // Logic to store/display the name can go here
-    setNameInput(""); // Reset the input field
-    setIsModalOpen(false); // Close the modal
-  };
-
   // Logout function
   const handleLogout = () => {
-    logOut(dispatch, setLoading, setError, navigate); // Call logOut with the necessary parameters
+    logOut(dispatch, setLoading, setError, navigate); 
   };
 
   return (
