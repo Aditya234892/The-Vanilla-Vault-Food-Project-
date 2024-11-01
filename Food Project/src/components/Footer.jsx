@@ -33,10 +33,10 @@ const Footer = () => {
 
                 <div className="mt-6 border-t border-gray-700 pt-4 text-center">
                     <p className="text-gray-400">© {new Date().getFullYear()} The Vanilla Vault. All rights reserved.</p>
-                    <div className="mt-2">
-                        <a href="https://facebook.com" className="text-gray-400 hover:text-gray-300 mx-2" target="_blank" rel="noopener noreferrer">Facebook</a>
-                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-300 mx-2" target="_blank" rel="noopener noreferrer">Twitter</a>
-                        <a href="https://instagram.com" className="text-gray-400 hover:text-gray-300 mx-2" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <div className="mt-2 flex justify-center space-x-4">
+                        <a href="https://facebook.com" className="text-gray-400 hover:text-gray-300" target="_blank" rel="noopener noreferrer">Facebook</a>
+                        <a href="https://twitter.com" className="text-gray-400 hover:text-gray-300" target="_blank" rel="noopener noreferrer">Twitter</a>
+                        <a href="https://instagram.com" className="text-gray-400 hover:text-gray-300" target="_blank" rel="noopener noreferrer">Instagram</a>
                     </div>
                 </div>
             </div>

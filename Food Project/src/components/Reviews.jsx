@@ -161,7 +161,7 @@ const Reviews = () => {
           </h1>
         </div>
       )}
-
+  
       <div className="max-w-6xl mx-auto mt-8 bg-white p-4 rounded-lg shadow-lg flex flex-col justify-center items-center overflow-y-auto">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 underline">Reviews</h2>
         {loading ? (
@@ -218,6 +218,7 @@ const Reviews = () => {
       </div>
     </section>
   );
+  
 };
 
 export default Reviews;

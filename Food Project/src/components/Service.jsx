@@ -134,60 +134,64 @@ const Service = ({ search }) => {
               <div
                 key={`${hit.recipe.uri}-${index}`}
                 style={{ backgroundColor: "#F1E4D3" }}
-                className="rounded-lg shadow-lg p-4"
+                className="rounded-lg shadow-lg p-4 flex flex-col justify-between"
               >
-                <div
-                  className="bg-cover bg-center rounded-md h-48 mb-2 hover:scale-105 duration-150"
-                  style={{ backgroundImage: `url(${hit.recipe.image})` }}
-                ></div>
-                <h2 className="text-xl font-semibold mb-2">{hit.recipe.label}</h2>
-                <p className="text-gray-700">Servings: {hit.recipe.yield}</p>
-                <p className="text-gray-700 font-bold">Price: ₹{prices[index]}</p>
+                <div>
+                  <div
+                    className="bg-cover bg-center rounded-md h-48 mb-2 hover:scale-105 duration-150"
+                    style={{ backgroundImage: `url(${hit.recipe.image})` }}
+                  ></div>
+                  <h2 className="text-xl font-semibold mb-2">{hit.recipe.label}</h2>
+                  <p className="text-gray-700">Servings: {hit.recipe.yield}</p>
+                  <p className="text-gray-700 font-bold">Price: ₹{prices[index]}</p>
 
-                <div className="flex items-center mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`w-5 h-5 ${i < ratings[index] ? "text-yellow-500" : "text-gray-300"} star`}
-                    >
-                      &#9733;
-                    </span>
-                  ))}
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <span
+                        key={i}
+                        className={`w-5 h-5 ${i < ratings[index] ? "text-yellow-500" : "text-gray-300"} star`}
+                      >
+                        &#9733;
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <a
-                  href={hit.recipe.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-2 bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600"
-                >
-                  View Recipe
-                </a>
+                <div className="flex flex-col mt-auto">
+                  <a
+                    href={hit.recipe.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-2 bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 text-center"
+                  >
+                    View Recipe
+                  </a>
 
-                <button
-                  onClick={() => handleToggleCart(hit.recipe, index)}
-                  className="inline-block ml-5 mt-2 bg-green-500 text-white rounded-md px-4 py-2 hover:bg-green-600 hover:scale-105 duration-150"
-                >
-                  {localItem ? "Remove from Cart" : "Add to Cart"}
-                </button>
+                  <button
+                    onClick={() => handleToggleCart(hit.recipe, index)}
+                    className="inline-block mt-2 bg-green-500 text-white rounded-md px-4 py-2 hover:bg-green-600 hover:scale-105 duration-150 text-center"
+                  >
+                    {localItem ? "Remove from Cart" : "Add to Cart"}
+                  </button>
 
-                {localItem && (
-                  <div className="flex items-center mt-2">
-                    <button
-                      onClick={() => handleQuantityChange(localItem, -1)}
-                      className="bg-red-500 text-white rounded-md px-2 py-1 hover:bg-red-600"
-                    >
-                      -
-                    </button>
-                    <span className="mx-2">{localItem.quantity}</span>
-                    <button
-                      onClick={() => handleQuantityChange(localItem, 1)}
-                      className="bg-blue-500 text-white rounded-md px-2 py-1 hover:bg-blue-600"
-                    >
-                      +
-                    </button>
-                  </div>
-                )}
+                  {localItem && (
+                    <div className="flex items-center mt-2">
+                      <button
+                        onClick={() => handleQuantityChange(localItem, -1)}
+                        className="bg-red-500 text-white rounded-md px-2 py-1 hover:bg-red-600"
+                      >
+                        -
+                      </button>
+                      <span className="mx-2">{localItem.quantity}</span>
+                      <button
+                        onClick={() => handleQuantityChange(localItem, 1)}
+                        className="bg-blue-500 text-white rounded-md px-2 py-1 hover:bg-blue-600"
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })

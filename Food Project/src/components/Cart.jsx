@@ -78,7 +78,7 @@ const Cart = () => {
       {/* Main Content */}
       <div className="container mt-20 mx-auto px-4 py-6 flex-grow">
         {/* Cart Items */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {cartItems.length ? (
             cartItems.map((item, index) => (
               <div
@@ -90,12 +90,12 @@ const Cart = () => {
                   className="bg-cover bg-center rounded-md h-48 mb-2"
                   style={{ backgroundImage: `url(${item.image})` }}
                 ></div>
-                <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
-                <p className="text-gray-700 font-bold">Price: ₹{item.price}</p>
-                <p className="text-gray-700">Free Delivery</p>
-                <p className="text-gray-700">Preparation Time: 20-30 mins</p>
+                <h2 className="text-lg sm:text-xl font-semibold mb-2">{item.name}</h2>
+            <p className="text-gray-700 font-bold">Price: ₹{item.price}</p>
+            <p className="text-gray-700">Free Delivery</p>
+            <p className="text-gray-700">Preparation Time: 20-30 mins</p>
 
-                <div className="flex items-center mt-4">
+            <div className="flex items-center mt-4">
                   <button
                     onClick={() =>
                       handleQuantityChange(item.name, item.quantity - 1)
@@ -131,7 +131,7 @@ const Cart = () => {
         {/* Total and Checkout Button */}
         {cartItems.length > 0 && (
           <div className="text-center mt-8">
-            <h2 className="text-2xl font-bold">Total Amount: ₹{totalAmount}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold">Total Amount: ₹{totalAmount}</h2>
             <button
               onClick={handleCheckoutBtn}
               className="bg-green-500 text-white rounded-md px-6 py-2 mt-4 hover:bg-green-600"
@@ -211,16 +211,16 @@ const Cart = () => {
                   {/* Form */}
                   <h3 className="text-xl font-bold mb-4">Enter Your Details</h3>
                   <form className="space-y-4">
-                    <div className="flex space-x-2">
+                  <div className="flex flex-col md:flex-row md:space-x-2">
                       <input
                         type="text"
                         placeholder="Name"
-                        className="w-1/2 p-2 border rounded"
+                        className="w-full md:w-1/2 p-2 border rounded"
                       />
                       <input
                         type="text"
                         placeholder="Address"
-                        className="w-1/2 p-2 border rounded"
+                        className="w-full md:w-1/2 p-2 border rounded"
                       />
                     </div>
                     <input

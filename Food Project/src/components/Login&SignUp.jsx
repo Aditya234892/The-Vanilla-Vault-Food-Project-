@@ -94,13 +94,13 @@ const LoginSignUp = () => {
 
   return (
     <div
-      className="w-full h-[100vh] flex justify-center items-center"
+      className="w-full h-screen flex justify-center items-center"
       style={{
         background: "linear-gradient(125deg, #191970, #0a0e3a 60%, #0f1450)",
       }}
     >
       <form
-        className="w-1/3 mx-auto p-8 bg-gradient-to-r from-teal-800 to-teal-600 rounded-lg shadow-lg flex flex-col space-y-6"
+        className="w-full max-w-md mx-auto p-8 bg-gradient-to-r from-teal-800 to-teal-600 rounded-lg shadow-lg flex flex-col space-y-6"
       >
         <h2 className="text-white text-2xl font-bold text-center">
           {isLogin ? "Welcome Back!" : "Create an Account"}
@@ -198,7 +198,8 @@ const LoginSignUp = () => {
         )}
       </form>
     </div>
-  );
+);
+
 };
 
 export default LoginSignUp;
