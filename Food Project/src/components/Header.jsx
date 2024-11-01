@@ -9,7 +9,8 @@ const Header = () => {
   const [selectedTab, setSelectedTab] = useState(location.pathname);
 
   const { userData } = useSelector((state) => state.userStorage);
-//   console.log(userData?.stsTokenManager);
+  //   console.log(userData?.stsTokenManager);
+  const { cartItems } = useSelector((state) => state.cart);
   useEffect(() => {
     setSelectedTab(location.pathname);
   }, [location]);
@@ -43,13 +44,20 @@ const Header = () => {
           <Link to="/Reviews">Reviews</Link>
         </li>
         <li
-          className={`duration-300 ${
+          className={`duration-300 relative ${
             selectedTab === "/Cart"
               ? "text-yellow-500 underline"
               : "hover:text-amber-500"
           }`}
         >
-          <Link to="/Cart">Cart</Link>
+          <Link to="/Cart">
+            Cart
+            {cartItems.length > 0 && (
+              <span className="ml-1 bg-red-500 text-white rounded-full text-xs px-1 absolute">
+                {cartItems.length}
+              </span>
+            )}
+          </Link>
         </li>
       </ul>
 
@@ -61,7 +69,7 @@ const Header = () => {
         </div>
       ) : (
         <div>
-            <UserButton/>
+          <UserButton />
         </div>
       )}
     </header>

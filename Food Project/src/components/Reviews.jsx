@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { fireStore } from "../config/FirebaseConfig";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,6 @@ const Reviews = () => {
   const [reviewText, setReviewText] = useState("");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(reviews)
 
   const reviewsCollectionRef = collection(fireStore, "reviews");
   const { isLoggedIn, userData } = useSelector((state) => state.userStorage);
@@ -29,8 +28,6 @@ const Reviews = () => {
     if (authToken && savedUser) {
       dispatch(addUserData(savedUser));
       dispatch(isUserLoggedIn(true));
-    } else {
-      console.log("No user logged in or user data not found");
     }
   };
 
@@ -75,22 +72,22 @@ const Reviews = () => {
     e.preventDefault();
 
     const newReview = {
-      userName: userData.displayName,
-      userImg: userData.photoURL,
+      userName: userData?.displayName || userData?.email?.split('@')[0],
+      userImg: userData?.photoURL || `${userData?.email?.slice(0, 2).toUpperCase()}`,
       rating: rating,
       text: reviewText,
       timestamp: new Date(),
+      userId: userData?.uid, // Add user ID to the review
     };
 
     try {
       await addDoc(reviewsCollectionRef, newReview);
       fetchDocs();
+      setReviewText("");
+      setRating(1);
     } catch (err) {
-      console.log("Error", err);
+      console.error("Error adding review:", err);
     }
-
-    setReviewText("");
-    setRating(0);
   };
 
   const fetchDocs = async () => {
@@ -103,7 +100,7 @@ const Reviews = () => {
       }));
       setReviews(list);
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching reviews:", err);
     } finally {
       setLoading(false);
     }
@@ -112,6 +109,21 @@ const Reviews = () => {
   useEffect(() => {
     fetchDocs();
   }, []);
+
+  // Add delete functionality
+  const handleDelete = async (reviewId, reviewUserId) => {
+    // Check if the current user is the owner of the review
+    if (userData?.uid !== reviewUserId) {
+      return; // Exit if user doesn't own the review
+    }
+
+    try {
+      await deleteDoc(doc(fireStore, "reviews", reviewId));
+      fetchDocs(); // Refresh reviews after deletion
+    } catch (err) {
+      console.error("Error deleting review:", err);
+    }
+  };
 
   return (
     <section className="bg-gradient-to-br from-teal-500 to-teal-700 mt-20 py-6 px-4 text-white min-h-screen">
@@ -129,7 +141,7 @@ const Reviews = () => {
               onChange={(e) => setReviewText(e.target.value)}
               placeholder="Share your experience..."
               required
-              className="w-full h-24 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full h-24 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 text-amber-900"
             />
             <button
               type="submit"
@@ -183,6 +195,15 @@ const Reviews = () => {
                       />
                     ))}
                   </div>
+                  {/* Show delete button only for user's own reviews */}
+                  {isLoggedIn && userData?.uid === review.userId && (
+                    <button
+                      onClick={() => handleDelete(review.id, review.userId)}
+                      className="ml-auto px-3 py-1 text-sm text-red-600 hover:text-red-800 hover:underline focus:outline-none"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
                 <p className="text-gray-700 text-lg">{review.text}</p>
                 <p className="text-sm text-gray-500">

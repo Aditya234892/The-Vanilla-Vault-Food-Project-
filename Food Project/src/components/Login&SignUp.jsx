@@ -16,7 +16,7 @@ const LoginSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirm password
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false); // Toggle for login/register mode
+  const [isLogin, setIsLogin] = useState(true); // Set to true to show login screen first
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,30 +25,41 @@ const LoginSignUp = () => {
       setError("Email and Password are required!");
       return;
     }
-
+  
     if (!isLogin && password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
-
+  
     setError("");
     setLoading(true);
     try {
+      let user;
       if (isLogin) {
         // Login mode
         const res = await signInWithEmailAndPassword(auth, email, password);
-        const user = res.user;
-        dispatch(addUserData(user));
-        dispatch(isUserLoggedIn(true));
-        localStorage.setItem("authToken", user.accessToken);
+        user = res.user;
+        dispatch(
+          addUserData({
+            email: user.email,
+            stsTokenManager: user.stsTokenManager,
+          })
+        );
       } else {
         // Register mode
         const res = await createUserWithEmailAndPassword(auth, email, password);
-        const user = res.user;
-        dispatch(addUserData(user));
-        dispatch(isUserLoggedIn(true));
-        localStorage.setItem("authToken", user.accessToken);
+        user = res.user;
+        dispatch(
+          addUserData({
+            email: user.email,
+            stsTokenManager: user.stsTokenManager,
+          })
+        );
       }
+  
+      dispatch(isUserLoggedIn(true));
+      localStorage.setItem("authToken", user.accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -56,6 +67,7 @@ const LoginSignUp = () => {
       setLoading(false);
     }
   };
+  
 
   const signInWithGoogle = async () => {
     setError("");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "./Logout"; // Adjust path if necessary
@@ -41,8 +41,8 @@ const UserButton = () => {
         {userData?.displayName ? (
           `${userData.displayName.split(" ")[0][0]}${userData.displayName.split(" ")[1][0]}`
         ) : (
-          "?" 
-        )}
+          `${userData?.email?.slice(0, 2).toUpperCase()}`
+                  )}
       </button>
 
       {/* Modal for name input */}
@@ -50,34 +50,13 @@ const UserButton = () => {
         <div className="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true" />
         
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-y-4 max-w-md mx-auto">
+          <DialogPanel className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-y-4 max-w-md mx-auto">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
             >
               ✕
             </button>
-
-            {!userData?.displayName && (
-              <div>
-                <h2 className="text-xl mb-4">Enter Your Name</h2>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={nameInput}
-                  onChange={handleInputChange}
-                  className="border-2 border-gray-300 p-2 rounded mb-4 w-full text-amber-800"
-                />
-                <div className="flex justify-between mb-4">
-                  <button
-                    onClick={handleNameSubmit} // Handles name submission
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            )}
             <button
               onClick={() => setIsModalOpen(false)} // Closes the modal
               className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
@@ -92,7 +71,7 @@ const UserButton = () => {
             >
               Logout
             </button>
-          </Dialog.Panel>
+          </DialogPanel>
         </div>
       </Dialog>
     </div>

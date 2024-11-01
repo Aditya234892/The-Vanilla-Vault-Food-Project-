@@ -2,8 +2,9 @@ import logo1 from "../assets/logo1.png";
 import "animate.css";
 import Dishes from "./Service";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUserData, isUserLoggedIn } from "../store/storageSlice";
+import ChatBox from './ChatBoxAI';
 import TimeOutPopUp from "./timeOutPopUp";
 
 const Home = () => {
@@ -11,6 +12,9 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [showPopUp, setShowPopUp] = useState(false); // State to control the popup visibility
+
+  const {userData} = useSelector((state) => state.userStorage);
+  console.log(userData);
 
   const checkIfUserLoggedIn = async () => {
     const authToken = localStorage.getItem("authToken");
@@ -121,7 +125,13 @@ const Home = () => {
       <Dishes search={debouncedSearch} />
       {/* Conditionally render the TimeOutPopUp if showPopUp is true */}
       {showPopUp && <TimeOutPopUp />}
+
+<div>
+<ChatBox />
+</div>
+
     </section>
+    
   );
 };
 

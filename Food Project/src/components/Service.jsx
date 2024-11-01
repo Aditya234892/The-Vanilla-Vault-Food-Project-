@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, updateCartItemQuantity } from "../store/cartSlice";
+import { addItemToCart, updateCartItemQuantity, removeItemFromCart } from "../store/cartSlice"; // Import remove action
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const AppId = import.meta.env.VITE_APP_ID;
@@ -15,7 +15,8 @@ const Service = ({ search }) => {
   const [loadMoreCount, setLoadMoreCount] = useState(0);
   const [localCart, setLocalCart] = useState({}); // Local state to manage cart items
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const {cartItems} = useSelector((state) => state.cart)
+  console.log(cartItems)
   const dispatch = useDispatch();
 
   const foodCategories = [
@@ -51,6 +52,7 @@ const Service = ({ search }) => {
       );
 
       const newRecipes = response.data.hits;
+      // console.log(newRecipes);
       const newPrices = Array.from(
         { length: newRecipes.length },
         () => Math.floor(Math.random() * (700 - 250 + 1)) + 250
@@ -60,13 +62,11 @@ const Service = ({ search }) => {
         () => Math.floor(Math.random() * 5) + 1
       );
 
-      // Append data only if not searching
       if (!search) {
         setData((prevData) => [...prevData, ...newRecipes]);
         setPrices((prevPrices) => [...prevPrices, ...newPrices]);
         setRatings((prevRatings) => [...prevRatings, ...newRatings]);
       } else {
-        // Set new data on search
         setData(newRecipes);
         setPrices(newPrices);
         setRatings(newRatings);
@@ -78,22 +78,20 @@ const Service = ({ search }) => {
     }
   };
 
-  const handleAddToCart = (recipe, index) => {
-    const existingItem = cartItems.find((item) => item.name === recipe.label);
+  const handleToggleCart = (recipe, index) => {
+    const isItemInCart = localCart[recipe.label];
     const price = prices[index];
 
-    if (existingItem) {
-      // If item exists, update localCart quantity
-      setLocalCart((prev) => ({
-        ...prev,
-        [recipe.label]: {
-          ...prev[recipe.label],
-          quantity: prev[recipe.label].quantity + 1,
-        },
-      }));
-      dispatch(updateCartItemQuantity({ name: recipe.label, quantity: existingItem.quantity + 1 }));
+    if (isItemInCart) {
+      // Remove item from cart
+      setLocalCart((prev) => {
+        const updatedCart = { ...prev };
+        delete updatedCart[recipe.label];
+        return updatedCart;
+      });
+      dispatch(removeItemFromCart(recipe.label));
     } else {
-      // If item does not exist, add to localCart and dispatch action
+      // Add item to cart
       const cartItem = {
         name: recipe.label,
         price,
@@ -123,7 +121,7 @@ const Service = ({ search }) => {
     <div className="container mx-auto p-4 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl">
       <h1
         className="text-4xl font-bold text-center my-6 text-amber-200"
-        style={{fontFamily: "Dancing Script" }}
+        style={{ fontFamily: "Dancing Script" }}
       >
         Your Personal Food Court
       </h1>
@@ -167,10 +165,10 @@ const Service = ({ search }) => {
                 </a>
 
                 <button
-                  onClick={() => handleAddToCart(hit.recipe, index)}
+                  onClick={() => handleToggleCart(hit.recipe, index)}
                   className="inline-block ml-5 mt-2 bg-green-500 text-white rounded-md px-4 py-2 hover:bg-green-600 hover:scale-105 duration-150"
                 >
-                  {localItem ? "Added" : "Add to Cart"}
+                  {localItem ? "Remove from Cart" : "Add to Cart"}
                 </button>
 
                 {localItem && (

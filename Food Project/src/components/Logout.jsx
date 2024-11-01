@@ -13,13 +13,14 @@ export const logOut = async (dispatch, setLoading, setError, navigate) => {
 
     // Remove any saved token or data from local storage
     localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
 
     // Update Redux state to remove user data and set login status to false
     dispatch(addUserData(null));
     dispatch(isUserLoggedIn(false));
 
     // Redirect user to login/signup page
-    navigate("/");
+    navigate("/LoginSignUp");
   } catch (err) {
     // If there's an error, set the error message
     setError(err.message);
