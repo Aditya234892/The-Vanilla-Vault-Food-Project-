@@ -1,7 +1,7 @@
-# Vanilla Vault 🍽️
+# The Vanilla Vault Food Project 🍽️
 
 ## Overview
-Vanilla Vault is a modern food delivery web application built using React, Redux, and Firebase, providing a seamless online food ordering experience.
+The Vanilla Vault Food Project is a modern food delivery web application built using React, Redux, and Firebase, providing a seamless online food ordering experience.
 
 ## 🚀 Technologies Used
 - React.js
@@ -16,7 +16,6 @@ Vanilla Vault is a modern food delivery web application built using React, Redux
 - User Authentication
   - Google Sign-In
   - Secure login/logout functionality
-- Real-time Restaurant Listings
 - Menu Browsing
 - Shopping Cart Management
 - Order Placement
@@ -31,8 +30,8 @@ Vanilla Vault is a modern food delivery web application built using React, Redux
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/vanilla-vault.git
-cd vanilla-vault
+git clone https://github.com/your-username/The-Vanilla-Vault-Food-Project.git
+cd The-Vanilla-Vault-Food-Project
 ```
 
 ### 2. Install Dependencies
@@ -65,14 +64,14 @@ The project is deployed on Vercel at: https://the-vanilla-vault.vercel.app/
 
 ## 📋 Project Structure
 ```
-vanilla-vault/
+The-Vanilla-Vault-Food-Project/
 ├── public/
 ├── src/
+│   ├── assets/
 │   ├── components/
-│   ├── pages/
-│   ├── redux/
-│   ├── firebase/
-│   └── utils/
+│   ├── config/
+│   ├── store/
+│   └── App.jsx/
 ├── package.json
 └── README.md
 ```
@@ -88,9 +87,9 @@ vanilla-vault/
 Distributed under the MIT License.
 
 ## 🐛 Issues
-Report issues at [GitHub Issues](https://github.com/your-username/vanilla-vault/issues)
+Report issues at [GitHub Issues](https://github.com/Aditya234892/The-Vanilla-Vault-Food-Project/issues)
 
 ## 📧 Contact
-Your Name - your.email@example.com
+Aditya Mishra - adityadevansh2002@gmial.com
 
-Project Link: [https://github.com/your-username/vanilla-vault](https://github.com/your-username/vanilla-vault)
+Project Link: [https://github.com/aditya234892/The-Vanilla-Vault-Food-Project](https://github.com/aditya234892/The-Vanilla-Vault-Food-Project)
